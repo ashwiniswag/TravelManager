@@ -2,6 +2,7 @@
     <string name="app_name">TravelManager</string>
     <string name="terms"><u><b><i>to terms an conditions</i></b></u></string>
     <string name="web_client_id">307429605615-3eae37jvodeu57igq2876co2bcc3074a.apps.googleusercontent.com</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
