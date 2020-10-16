@@ -8,10 +8,13 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,20 +23,46 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+import java.util.Locale;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     LocationManager locationManager;
     LocationListener locationListener;
     private GoogleMap mMap;
 
+    //to update the pointer location on the map
     public void centerMapOnLocation(Location location, String title) {
         if (location != null) {
             LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 12));
+            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+            String address = "";
+
+            try {
+                List<Address> listAdddresses = geocoder.getFromLocation(userLocation.latitude,userLocation.longitude,1);
+                if (listAdddresses != null && listAdddresses.size() > 0) {
+                    if (listAdddresses.get(0).getThoroughfare() != null) {
+                        if (listAdddresses.get(0).getSubThoroughfare() != null) {
+                            address += listAdddresses.get(0).getSubThoroughfare() + " ";
+                        }
+                        address += listAdddresses.get(0).getThoroughfare();
+                    }
+                }
+
+                Toast.makeText(this,address,Toast.LENGTH_SHORT).show();
+
+            } catch (Exception e) {
+                Toast.makeText(this,"wrong",Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         }
     }
 
+    //to request permissions for locations
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -70,11 +99,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,2));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,2));
+        //to get the location
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
