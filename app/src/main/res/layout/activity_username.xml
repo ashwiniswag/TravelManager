@@ -57,6 +57,34 @@
             android:padding="2dp"
             android:text="You can change username later if you want" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:weightSum="4"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:text="Choose Dp"
+                android:background="@drawable/roundbutton"
+                android:id="@+id/dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:padding="5dp"
+                android:id="@+id/fileName"
+                android:text="File Name"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
         <EditText
             android:id="@+id/bio"
             android:layout_weight="4"

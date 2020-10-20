@@ -224,8 +224,8 @@ public class Login extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),Username.class));
                 }
                 else{
-//                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                    startActivity(new Intent(getApplicationContext(),Profile.class));
                 }
             }
 
