@@ -22,15 +22,15 @@
         <activity android:name=".Username"></activity>
         <activity android:name=".Signup"></activity>
         <activity android:name=".Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"/>
+            android:name=".maps.mapfinalactivity">
+        <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>
