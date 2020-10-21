@@ -37,12 +37,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.travelmanager.MainActivity;
 import com.example.travelmanager.R;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -210,14 +212,15 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     //lastmarker = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
             });
-
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(currlatitude,currlongitude)));
+            //mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
                 @Override
                 public void onMapClick(LatLng latLng) {
-                    Log.i("this","it is here broooooooooooooooooooooooooooo");
                     mMap.clear();
                     main_ll.setVisibility(View.GONE);
+                    searchbar.onActionViewCollapsed();
                     latitude = latLng.latitude;
                     longitude = latLng.longitude;
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Destination").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
@@ -229,8 +232,21 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     // Start downloading json data from Google Directions API
                     System.out.println(url);
                     FetchUrl.execute(url);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(currlatitude,currlongitude)));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+                    ArrayList<Marker>markers=new ArrayList<>();
+                    markers.clear();
+                    markers.add(mMap.addMarker(new MarkerOptions().position(new LatLng(currlatitude,currlongitude))));
+                    markers.add(mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude))));
+                    for (Marker marker : markers) {
+                        builder.include(marker.getPosition());
+                    }
+                    LatLngBounds bounds = builder.build();
+                    int padding = 250;
+                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+                    mMap.moveCamera(cu);
+                    mMap.animateCamera(cu);
                 }
             });
             Intent routeData = getIntent();
@@ -289,7 +305,10 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(latLng).title(location));
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            Toast.makeText(getApplicationContext(), address.getLatitude() + " " + address.getLongitude(), Toast.LENGTH_LONG).show();
+
+            searchbar.onActionViewExpanded();
+            searchbar.setQuery(location, true);
+            //Toast.makeText(getApplicationContext(), address.getLatitude() + " " + address.getLongitude(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -375,6 +394,7 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -382,7 +402,7 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 //Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress());
-                Toast.makeText(mapfinalactivity.this, "ID: " + place.getId() + "address:" + place.getAddress() + "Name:" + place.getName() + " latlong: " + place.getLatLng(), Toast.LENGTH_LONG).show();
+                Toast.makeText(mapfinalactivity.this, place.getName() , Toast.LENGTH_LONG).show();
                 String address = place.getAddress();
                 searchLocation(address);
                 // do query with address
@@ -424,7 +444,7 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
         FetchUrl FetchUrl = new FetchUrl();
 
         // Start downloading json data from Google Directions API
-        System.out.println(url);
+
         FetchUrl.execute(url);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(currlatitude,currlongitude)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -573,7 +593,7 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(10);
+                lineOptions.width(13);
                 lineOptions.color(Color.BLUE);
 
                 Log.d("onPostExecute","onPostExecute lineoptions decoded");

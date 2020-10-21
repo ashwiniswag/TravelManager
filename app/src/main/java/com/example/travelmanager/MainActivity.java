@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.travelmanager.maps.mapfinalactivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 finish();
             case R.id.map:
-                startActivity(new Intent(MainActivity.this,MapsActivity.class));
+                startActivity(new Intent(MainActivity.this, mapfinalactivity.class));
+
                 break;
             default:
                 return super.onOptionsItemSelected(item);
