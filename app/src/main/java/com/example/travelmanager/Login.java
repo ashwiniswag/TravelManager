@@ -220,7 +220,7 @@ public class Login extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue()==null){
+                if(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").getValue()==null){
                     startActivity(new Intent(getApplicationContext(),Username.class));
                 }
                 else{

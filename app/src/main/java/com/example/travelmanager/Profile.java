@@ -81,9 +81,9 @@ public class Profile extends AppCompatActivity{
 
 
     }
-    public void setImage() {
-        this.image = image;
-    }
+//    public void setImage() {
+//        this.image = image;
+//    }
 
 
     public void display(){

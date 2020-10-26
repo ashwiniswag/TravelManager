@@ -1,28 +1,32 @@
 package com.example.travelmanager;
 
+import android.graphics.Bitmap;
+
 public class ModdleClass {
 
-    private int tripphoto,user_image,likesignal;
-    private String caption,likes,comment;
+    private Bitmap tripphoto,user_image;
+    private int likesignal;
+    private String caption,likes,comment,username;
 
     public ModdleClass() {
 
     }
 
-    public ModdleClass(int tripphoto, int user_image, int likesignal, String caption, String likes, String comment) {
+    public ModdleClass(Bitmap tripphoto, Bitmap user_image, int likesignal, String caption, String likes, String comment,String username) {
         this.tripphoto = tripphoto;
         this.user_image = user_image;
         this.likesignal = likesignal;
         this.caption = caption;
         this.likes = likes;
         this.comment = comment;
+        this.username=username;
     }
 
-    public int getTripphoto() {
+    public Bitmap getTripphoto() {
         return tripphoto;
     }
 
-    public int getUser_image() {
+    public Bitmap getUser_image() {
         return user_image;
     }
 
@@ -40,5 +44,9 @@ public class ModdleClass {
 
     public String getComment() {
         return comment;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

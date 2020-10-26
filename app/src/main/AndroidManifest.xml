@@ -3,8 +3,9 @@
     package="com.example.travelmanager">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,25 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".itineary.StartPlanning"></activity>
+        <activity android:name=".FindFollower" />
+        <activity android:name=".Post" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Profile"></activity>
-        <activity android:name=".Username"></activity>
-        <activity android:name=".Signup"></activity>
+        <activity android:name=".Profile" />
+        <activity android:name=".Username" />
+        <activity android:name=".Signup" />
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".maps.mapfinalactivity">
-
-        </activity>
+        <activity android:name=".maps.mapfinalactivity" />
     </application>
 
 </manifest>
