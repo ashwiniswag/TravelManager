@@ -1,4 +1,4 @@
-package com.example.travelmanager.maps;
+package com.example.travelmanager.maps.activities;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;

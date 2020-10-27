@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.travelmanager">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,14 +26,18 @@
         <activity android:name=".Username"></activity>
         <activity android:name=".Signup"></activity>
         <activity android:name=".Login">
+        </activity>
+        <activity android:name=".maps.activities.DisplayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".maps.mapfinalactivity">
+        <activity android:name=".maps.activities.PlaceDetailsActivity" />
+        <activity android:name=".maps.activities.PlaceOnMapActivity" />
+        <activity android:name=".maps.activities.ShowPlacesOnMapActivity"/>
+        <activity android:name=".maps.activities.mapfinalactivity">
 
         </activity>
     </application>
