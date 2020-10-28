@@ -35,20 +35,45 @@
         <activity android:name=".Login">
         </activity>
         <activity android:name=".maps.activities.DisplayActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".maps.activities.PlaceDetailsActivity" />
         <activity android:name=".maps.activities.PlaceOnMapActivity" />
         <activity android:name=".maps.activities.ShowPlacesOnMapActivity"/>
         <activity android:name=".maps.activities.mapfinalactivity">
-
         </activity>
-        <activity android:name=".maps.mapfinalactivity" />
+        <activity android:name=".itineary.addtrip.ProfileActivity" />
+        <activity android:name=".itineary.addtrip.AddTrip" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".itineary.addtrip.DetailsActivity" />
+        <activity
+            android:name=".itineary.addtrip.AlertActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+
+        <receiver
+            android:name=".itineary.addtrip.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".itineary.addtrip.RingtonePlayingService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".itineary.addtrip.FloatingWidgetService"
+            android:enabled="true"
+            android:exported="true" />
+
+<!--        <activity android:name=".itineary.addtrip.AboutActivity"></activity>-->
     </application>
 
 </manifest>
