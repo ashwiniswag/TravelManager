@@ -8,13 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.travelmanager.maps.activities.mapfinalactivity;
@@ -22,8 +27,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     GoogleSignInClient mGoogleSignInClient;
+
+    Adapter adapter;
+    List<ModdleClass> moddleClasses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +67,13 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<ModdleClass> moddleClasses = new ArrayList<>();
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        moddleClasses.add(new ModdleClass(R.drawable.ic_check,R.drawable.ic_error,R.drawable.ic_lock_outline_black_24dp,"Wondering","213","15"));
-        Adapter adapter=new Adapter(moddleClasses);
+        moddleClasses = new ArrayList<>();
+        adapter=new Adapter(moddleClasses);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        populate();
+
     }
 
     @Override
@@ -77,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
+
             case R.id.profile:
                 startActivity(new Intent(MainActivity.this,Profile.class));
                 break;
@@ -85,7 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 finish();
             case R.id.map:
-                startActivity(new Intent(MainActivity.this, mapfinalactivity.class));
+                startActivity(new Intent(MainActivity.this,mapfinalactivity.class));
+                break;
+            case R.id.post:
+                startActivity(new Intent(MainActivity.this,Post.class));
+                break;
+            case R.id.follwer:
+                startActivity(new Intent(MainActivity.this,FindFollower.class));
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -132,6 +149,130 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+
+    void addtoView(final String caption, final String Nlikes, final String Ncomment, final String username, final Bitmap bitmap,final Bitmap bitmap2){
+        moddleClasses.add(new ModdleClass(bitmap,bitmap2,R.drawable.like,caption,Nlikes,Ncomment,username));
+        Toast.makeText(getApplicationContext(),"Added to the view",Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
+    }
+
+    void add(final String caption, final String Nlikes, final String Ncomment, final String picname, final String userid){
+
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("UserInformation");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String user=snapshot.child("UserName").getValue().toString();
+                Toast.makeText(getApplicationContext(),"Got UserName " + user,Toast.LENGTH_SHORT).show();
+                getpic(caption,Nlikes,Ncomment,picname,user,userid);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    void getdp(final String caption, final String Nlikes, final String Ncomment, final String user, final String userid, final Bitmap bitmap){
+        StorageReference sref = FirebaseStorage.getInstance().getReference().child(userid).child("DP");//.child(Picname);
+        final long ONE_MEGABYTE =1024 * 1024 * 10;
+        sref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                if(bytes!=null){
+                    Bitmap bitmap2= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//                    image.setImageBitmap(bitmap);
+//                    String username=user;
+                    Toast.makeText(getApplicationContext(),"Got Pic",Toast.LENGTH_SHORT).show();
+                    addtoView(caption,Nlikes,Ncomment,user,bitmap,bitmap2);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present " ,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void getpic(final String caption, final String Nlikes, final String Ncomment, final String Picname, final String user,final String userid){
+        StorageReference sref = FirebaseStorage.getInstance().getReference().child(userid).child(Picname).child(Picname);
+        final long ONE_MEGABYTE =1024 * 1024 * 10;
+        sref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                if(bytes!=null){
+                    Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//                    image.setImageBitmap(bitmap);
+//                    String username=user;
+                    Toast.makeText(getApplicationContext(),"Got Pic",Toast.LENGTH_SHORT).show();
+//                    addtoView(caption,Nlikes,Ncomment,user,bitmap);
+                    getdp(caption,Nlikes,Ncomment,user,userid,bitmap);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present "  + Picname,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    void getpostinfo(final String userna){
+        DatabaseReference subref=FirebaseDatabase.getInstance().getReference().child("User").child(userna).child("Posts");
+        subref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Iterator<DataSnapshot> tripit=snapshot.getChildren().iterator();
+//                while(tripit.hasNext()){
+//                    DataSnapshot post=tripit.next();
+//                            String posts=post.child("Posts")
+                    Iterator<DataSnapshot> itr=snapshot.getChildren().iterator();
+                    while(itr.hasNext()){
+                        DataSnapshot content=itr.next();
+                        String caption=content.child("Caption").getValue().toString();
+                        String Nlikes=content.child("NLikes").getValue().toString();
+                        String Ncomment=content.child("NComment").getValue().toString();
+                        String Picname=content.child("Postid").getValue().toString();
+                        String userid=userna;
+                        Toast.makeText(getApplicationContext(),"Post info taken " + Nlikes + " "+Ncomment,Toast.LENGTH_SHORT).show();
+                        add(caption,Nlikes,Ncomment,Picname,userid);
+                    }
+//                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    void populate(){
+        Toast.makeText(getApplicationContext(),"Populate Running",Toast.LENGTH_SHORT).show();
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Following");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> followingiterator=snapshot.getChildren().iterator();
+                while (followingiterator.hasNext()){
+                    DataSnapshot followingsnapshot=followingiterator.next();
+                    String userna=followingsnapshot.child("Userid").getValue().toString();
+                    Toast.makeText(getApplicationContext(),"Following Task done",Toast.LENGTH_SHORT).show();
+                    getpostinfo(userna);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
 }

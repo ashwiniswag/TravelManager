@@ -114,9 +114,7 @@ public class Username extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
 
@@ -134,8 +132,10 @@ public class Username extends AppCompatActivity {
             User user=new User(DisplayName,UserName);
             ref.child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").setValue(user);
         }
-        ref.child("UserIds").child(UserName).setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+        ref.child("UserIds").child(UserName).child("Userid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ref.child("UserIds").child(UserName).child("DisplayName").setValue(DisplayName);
+        ref.child("UserIds").child(UserName).child("UserName").setValue(UserName);
         if(dat!=null) {
             StorageReference sref = FirebaseStorage.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("DP");
             UploadTask uploadTask = sref.putBytes(dat);

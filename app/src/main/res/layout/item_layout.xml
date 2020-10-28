@@ -3,26 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="20dp">
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="8">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/traveler_dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/traveler_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:textSize="20dp"
+                android:paddingLeft="5dp"
+                android:text="Username"
+                android:gravity="center_vertical"/>
+
+
+        </LinearLayout>
+
     <ImageView
         android:id="@+id/tour_pic"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/cardview_dark_background"/>
-    <TextView
-        android:id="@+id/caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Caption"
-        android:textSize="20dp"
-        android:inputType="textMultiLine"/>
+        android:layout_height="300dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,34 +48,20 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/traveler_dp"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="#15D6D3"/>
 
-        <TextView
-            android:id="@+id/traveler_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:textSize="20dp"
-            android:text="Username"
-            android:gravity="center_vertical"/>
         <ImageView
             android:id="@+id/icon_like"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_weight="1"
-            android:background="#39D827"/>
+            android:padding="5dp"
+            android:src="@drawable/like"/>
 
         <TextView
             android:id="@+id/likes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:padding="5dp"
             android:text="44"
             android:gravity="center"/>
 
@@ -65,18 +69,40 @@
             android:id="@+id/icon_picture"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="right"
-            android:background="#2F4E6E"/>
+            android:src="@drawable/speech_bubble"/>
 
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:padding="5dp"
             android:text="13"
             android:gravity="center"/>
     </LinearLayout>
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Caption"
+            android:textSize="20dp"
+            android:inputType="textMultiLine"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:hint="Add Comment"
+            android:padding="5dp"
+            android:background="@drawable/roundedittext"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Comment"
+            android:padding="5dp"
+            android:background="@drawable/roundbutton"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

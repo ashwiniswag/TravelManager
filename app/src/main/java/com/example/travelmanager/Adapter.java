@@ -1,5 +1,6 @@
 package com.example.travelmanager;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Viewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.Viewholder holder, int position) {
-        int tripphoto = moddleClassList.get(position).getTripphoto();
-        int user_image = moddleClassList.get(position).getUser_image();
+        Bitmap tripphoto = moddleClassList.get(position).getTripphoto();
+        Bitmap user_image = moddleClassList.get(position).getUser_image();
         int likesignal = moddleClassList.get(position).getLikesignal();
         String caption = moddleClassList.get(position).getCaption();
         String likes = moddleClassList.get(position).getLikes();
         String comment = moddleClassList.get(position).getComment();
-        holder.setdata(tripphoto,user_image,likesignal,caption,likes,comment);
+        String username = moddleClassList.get(position).getUsername();
+        holder.setdata(tripphoto,user_image,likesignal,caption,likes,comment,username);
     }
 
     @Override
@@ -58,9 +60,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Viewholder> {
 
         }
 
-        public void setdata(int tripphoto,int user_image,int likesignal,String caption,String likes,String comment){
-            trip_pic.setImageResource(tripphoto);
-            traveler_pic.setImageResource(user_image);
+        public void setdata(Bitmap tripphoto,Bitmap user_image,int likesignal,String caption,String likes,String comment,String username){
+            trip_pic.setImageBitmap(tripphoto);
+            traveler_pic.setImageBitmap(user_image);
+            traveler_name.setText(username);
             this.likesignal.setImageResource(likesignal);
             this.caption.setText(caption);
             this.likes.setText(likes);

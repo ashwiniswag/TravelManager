@@ -2,17 +2,17 @@ package com.example.travelmanager;
 
 public class User {
 
-    public String DisplayName,uname,Bio;
+    public String DisplayName,UserName,Bio;
 
     public User(String DisplayName,String UserName,String Bio) {
         this.DisplayName=DisplayName;
-        this.uname=uname;
+        this.UserName=UserName;
         this.Bio=Bio;
     }
 
     public User(String DisplayName,String UserName){
         this.DisplayName=DisplayName;
-        this.uname=UserName;
+        this.UserName=UserName;
         Bio="";
     }
 }
