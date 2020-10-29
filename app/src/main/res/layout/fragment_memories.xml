@@ -7,10 +7,12 @@
 <!--    android:background="#3DEC54">-->
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="30sp"
-        android:text="How's the memory going on" />
+        android:id="@+id/gridview"
+        android:padding="5dp"
+        android:numColumns="2"/>
 
 </FrameLayout>

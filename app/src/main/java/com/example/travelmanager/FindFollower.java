@@ -4,18 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.service.autofill.Dataset;
 import android.util.Pair;
+import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.travelmanager.itineary.StartPlanning;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,8 +39,8 @@ public class FindFollower extends AppCompatActivity {
     ListView list;
     ListAdpter adapter;
 
-    List<Pair<String,Bitmap>> userid;
-    ArrayList<String> display_name,username,following;
+//    List<Pair<String,Bitmap>> userid;
+    ArrayList<String> display_name,username,following,userid;
     List<Bitmap> dps;
 
     @Override
@@ -47,12 +51,12 @@ public class FindFollower extends AppCompatActivity {
 //        search=findViewById(R.id.search);
         display_name=new ArrayList<>();
         username=new ArrayList<>();
-        userid=new ArrayList<Pair<String,Bitmap>>();
+        userid=new ArrayList<>();
         following=new ArrayList<>();
 //        display_name;=new String{""};
 
 
-        dps=new ArrayList<>();
+//        dps=new ArrayList<>();
         list=findViewById(R.id.list);
         adapter=new ListAdpter(this,display_name,username,userid);
         list.setAdapter(adapter);
@@ -96,6 +100,7 @@ public class FindFollower extends AppCompatActivity {
     }
 
     public void populate(){
+        Toast.makeText(FindFollower.this,"FInding",Toast.LENGTH_SHORT).show();
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("UserIds");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -108,10 +113,11 @@ public class FindFollower extends AppCompatActivity {
                         username.add(info.child("UserName").getValue().toString());
 //                        userid.add(new Pair<String, Bitmap>(info.child("Userid").getValue().toString(),null));
 //                        display_name.
-                        getdps(info.child("Userid").getValue().toString());
+//                        getdps(info.child("Userid").getValue().toString());
+                        userid.add(info.child("Userid").getValue().toString());
                     }
                 }
-//                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -121,26 +127,26 @@ public class FindFollower extends AppCompatActivity {
         });
     }
 
-    public void getdps(final String userids){
-        Toast.makeText(getApplicationContext(),"Downloading",Toast.LENGTH_SHORT).show();
-        StorageReference sref= FirebaseStorage.getInstance().getReference().child(userids).child("DP");
-        final long ONE_MEGABYTE =1024 * 1024 * 10;
-        sref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                if(bytes!=null){
-                    Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-//                    dps.add(bitmap);
-                    userid.add(new Pair<String, Bitmap>(userids,bitmap));
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    public void getdps(final String userids){
+//        Toast.makeText(getApplicationContext(),"Downloading",Toast.LENGTH_SHORT).show();
+//        StorageReference sref= FirebaseStorage.getInstance().getReference().child(userids).child("DP");
+//        final long ONE_MEGABYTE =1024 * 1024 * 10;
+//        sref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                if(bytes!=null){
+//                    Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+////                    dps.add(bitmap);
+//                    userid.add(new Pair<String, Bitmap>(userids,bitmap));
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
 }

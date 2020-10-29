@@ -5,9 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Post"
-    android:weightSum="9"
-    android:orientation="vertical"
-    android:padding="5dp">
+    android:weightSum="24"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="9"
+        android:layout_weight="23.9"
+        android:orientation="vertical"
+        android:padding="5dp">
 
     <EditText
         android:layout_width="match_parent"
@@ -45,5 +52,15 @@
         android:text="Upload"
         android:layout_weight="0.25"
         android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:menu="@menu/navigation"
+        android:id="@+id/bottomNavigationView"
+        android:layout_weight=".1"/>
 
 </LinearLayout>
