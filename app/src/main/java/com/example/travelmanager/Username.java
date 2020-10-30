@@ -165,11 +165,17 @@ public class Username extends AppCompatActivity {
 
             try {
 //                String userid= FirebaseAuth.getInstance().getCurrentUser().getUid();
-                file.setText(data.getDataString());
-                Bitmap bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),imageuri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                dat = baos.toByteArray();
+                long l = baos.toByteArray().length;
+                if (l >= (long)1200000) {
+                    Toast.makeText(getApplicationContext(), "Please selet image of size less than 1mb", Toast.LENGTH_SHORT).show();
+                } else {
+                    dat = baos.toByteArray();
+                    file.setText(data.getDataString());
+                }
+//                Toast.makeText(getApplicationContext(),String.valueOf(l),Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

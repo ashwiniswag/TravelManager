@@ -21,7 +21,8 @@
                 android:id="@+id/traveler_dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                app:civ_border_color="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/traveler_name"

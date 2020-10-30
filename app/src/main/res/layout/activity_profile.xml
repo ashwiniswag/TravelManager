@@ -6,8 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Profile"
-    android:weightSum="24"
-    android:padding="5dp">
+    android:weightSum="24">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="23.9"
+        android:weightSum="24"
+        android:orientation="vertical"
+        android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +28,8 @@
             android:layout_width="40dp"
             android:layout_weight="3"
             android:layout_height="match_parent"
-            android:id="@+id/dp"/>
+            android:id="@+id/dp"
+            app:civ_border_color="@color/colorPrimary"/>
 
 
 
@@ -94,7 +102,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:layout_weight="1"
-                android:text="Trips"/>
+                android:text="Posts"/>
 
         </LinearLayout>
 
@@ -183,5 +191,14 @@
             android:id="@+id/viewpager"/>
 
     </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:background="#ffffff"
+        app:menu="@menu/navigation"
+        android:id="@+id/bottomNavigationView"/>
 
 </LinearLayout>

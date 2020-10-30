@@ -14,6 +14,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +25,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.travelmanager.explore.Explore;
+import com.example.travelmanager.itineary.DaysStore;
+import com.example.travelmanager.itineary.StartPlanning;
+import com.example.travelmanager.maps.*;
 import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,6 +37,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     Adapter adapter;
     List<ModdleClass> moddleClasses;
+
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +82,31 @@ public class MainActivity extends AppCompatActivity {
         adapter=new Adapter(moddleClasses);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                switch (item.getItemId()){
+                    case R.id.explore:
+                        startActivity(new Intent(MainActivity.this, Explore.class));
+                        break;
+                    case R.id.post:
+                        startActivity(new Intent(MainActivity.this,Post.class));
+                        break;
+                    case R.id.plans:
+                        startActivity(new Intent(getApplicationContext(), StartPlanning.class));
+                        break;
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
         populate();
 
     }
@@ -90,18 +124,18 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
 
-            case R.id.profile:
-                startActivity(new Intent(MainActivity.this,Profile.class));
-                break;
+//            case R.id.profile:
+//                startActivity(new Intent(MainActivity.this,Profile.class));
+//                break;
             case R.id.signout:
                 logout();
                 finish();
             case R.id.map:
                 startActivity(new Intent(MainActivity.this,mapfinalactivity.class));
                 break;
-            case R.id.post:
-                startActivity(new Intent(MainActivity.this,Post.class));
-                break;
+//            case R.id.post:
+//                startActivity(new Intent(MainActivity.this,Post.class));
+//                break;
             case R.id.follwer:
                 startActivity(new Intent(MainActivity.this,FindFollower.class));
                 break;
@@ -195,6 +229,13 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Drawable d=getResources().getDrawable(R.drawable.ic_account);
+                Canvas canvas=new Canvas();
+                Bitmap bitmap2=Bitmap.createBitmap(d.getIntrinsicWidth(),d.getIntrinsicHeight(),Bitmap.Config.ARGB_8888);
+                canvas.setBitmap(bitmap2);
+                d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+                d.draw(canvas);
+                addtoView(caption,Nlikes,Ncomment,user,bitmap,bitmap2);
                 Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present " ,Toast.LENGTH_SHORT).show();
             }
         });
@@ -250,6 +291,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
     }
 
 

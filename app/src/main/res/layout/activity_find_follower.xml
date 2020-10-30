@@ -5,16 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FindFollower"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="24">
 
 <!--    <androidx.appcompat.widget.SearchView-->
 <!--        android:id="@+id/search"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="40dp"-->
 <!--        android:queryHint="Search"/>-->
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list"/>
+        android:layout_weight="23">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/list"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
