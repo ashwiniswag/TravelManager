@@ -119,6 +119,37 @@ public class Explore extends AppCompatActivity {
         categoryClass.add(new CategoryClass("School",R.drawable.school2x));
         categoryClass.add(new CategoryClass("Parks",R.drawable.park2x));
         cadapter.notifyDataSetChanged();
+/*        <!--        <item>ATM Booth</item>-->
+<!--        <item>Bank</item>-->
+<!--        <item>Bakery</item>-->
+<!--        <item>Bar</item>-->
+<!--        <item>Book Store</item>-->
+<!--        <item>Bus Station</item>-->
+<!--        <item>Car Rental</item>-->
+<!--        <item>Car Repair</item>-->
+<!--        <item>Car Wash</item>-->
+<!--        <item>Coffee Shop</item>-->
+<!--        <item>Clothing Store</item>-->
+<!--        <item>Dentist</item>-->
+<!--        <item>Doctor</item>-->
+<!--        <item>Electronics Store</item>-->
+<!--        <item>Embassy</item>-->
+<!--        <item>Fire Service</item>-->
+<!--        <item>Gas Station</item>-->
+<!--        <item>Govt Office</item>-->
+<!--        <item>Gym</item>-->
+<!--        <item>Hospital</item>-->
+<!--        <item>Jewelry Store</item>-->
+<!--        <item>Laundry</item>-->
+<!--        <item>Mosque</item>-->
+<!--        <item>Movie Theater</item>-->
+<!--        <item>Park</item>-->
+<!--        <item>Pharmacy</item>-->
+<!--        <item>Police Nearby</item>-->
+<!--        <item>Post Office</item>-->
+<!--        <item>Restaurant</item>-->
+<!--        <item>School</item>-->
+<!--        <item>Shopping Mall</item>-->*/
     }
 
     public void populatedestination(){

@@ -43,14 +43,15 @@
         <activity android:name=".maps.activities.PlaceOnMapActivity" />
         <activity android:name=".maps.activities.ShowPlacesOnMapActivity"/>
         <activity android:name=".maps.activities.mapfinalactivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".itineary.addtrip.ProfileActivity" />
         <activity android:name=".itineary.addtrip.AddTrip" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".itineary.addtrip.DetailsActivity" />
         <activity

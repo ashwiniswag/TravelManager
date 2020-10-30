@@ -17,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amitshekhar.DebugDB;
@@ -27,13 +29,17 @@ import com.example.travelmanager.database.dto.ProfileDTO;
 import com.example.travelmanager.database.dto.TripDTO;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -97,7 +103,18 @@ public class AddTrip extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.btn_cancel);
         myCalendar.setTimeInMillis(System.currentTimeMillis());
         currentCalendar.setTimeInMillis(System.currentTimeMillis());
+        String apiKey = "AIzaSyDYoQybddM6c-Daz0bHVe7h2tuyzxHmW1k";
 
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
+
+        // Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(this);
 
         profileDTO = new ProfileDTO();
         profileDAO = new ProfileDAOImpl(AddTrip.this);
@@ -210,51 +227,83 @@ public class AddTrip extends AppCompatActivity {
             }
         });
 
-        final PlaceAutocompleteFragment autocompleteFragment1 = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-        autocompleteFragment1.getView().setBackgroundColor(Color.WHITE);
-        autocompleteFragment1.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//        final PlaceAutocompleteFragment autocompleteFragment1 = (PlaceAutocompleteFragment)
+//                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+//        autocompleteFragment1.getView().setBackgroundColor(Color.WHITE);
+//        autocompleteFragment1.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                latLang1 = place.getLatLng();
+//                placeName = (String) place.getName();
+//                long1 = latLang1.longitude;
+//                lat1 = latLang1.latitude;
+//            }
+//            @Override
+//            public void onError(Status status) {
+//            }
+//        });
+//        final PlaceAutocompleteFragment autocompleteFragment2 = (PlaceAutocompleteFragment)
+//                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment2);
+//        autocompleteFragment2.getView().setBackgroundColor(Color.WHITE);
+//        autocompleteFragment2.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                // TODO: Get info about the selected place.
+//                latLang2 = place.getLatLng();
+//                placeDestination = (String) place.getName();
+//                long2 = latLang2.longitude;
+//                lat2 = latLang2.latitude;
+//            }
+//            @Override
+//            public void onError(Status status) {
+//            }
+//        });
+//
+//        AutocompleteFilter typeFilter1 = new AutocompleteFilter.Builder()
+//                .setCountry("IN")
+//                .build();
+//        autocompleteFragment1.setFilter(typeFilter1);
+//        AutocompleteFilter typeFilter2 = new AutocompleteFilter.Builder()
+//                .setCountry("IN")
+//                .build();
+//        autocompleteFragment2.setFilter(typeFilter2);
+
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        autocompleteFragment.getView().setBackgroundColor(Color.WHITE);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG,Place.Field.ID, Place.Field.NAME));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
-            public void onPlaceSelected(Place place) {
+            public void onPlaceSelected(@NonNull Place place) {
                 latLang1 = place.getLatLng();
-                placeName = (String) place.getName();
-                long1 = latLang1.longitude;
+               placeName = (String) place.getName();
+               long1 = latLang1.longitude;
                 lat1 = latLang1.latitude;
             }
-
             @Override
-            public void onError(Status status) {
-
-            }
-        });
-        final PlaceAutocompleteFragment autocompleteFragment2 = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment2);
+            public void onError(@NonNull Status status) {
+            }});
+        AutocompleteSupportFragment autocompleteFragment2 = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.place_autocomplete_fragment2);
         autocompleteFragment2.getView().setBackgroundColor(Color.WHITE);
+        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG,Place.Field.ID, Place.Field.NAME));
+
         autocompleteFragment2.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
+            public void onPlaceSelected(@NonNull Place place) {
                 latLang2 = place.getLatLng();
+//                if(latLang2.latitude==0.0)
+//                    Toast.makeText(getBaseContext(),"hello",Toast.LENGTH_SHORT).show();
+
                 placeDestination = (String) place.getName();
                 long2 = latLang2.longitude;
                 lat2 = latLang2.latitude;
-
             }
-
             @Override
-            public void onError(Status status) {
+            public void onError(@NonNull Status status) {
+            }});
 
-            }
-        });
-
-        AutocompleteFilter typeFilter1 = new AutocompleteFilter.Builder()
-                .setCountry("IN")
-                .build();
-        autocompleteFragment1.setFilter(typeFilter1);
-        AutocompleteFilter typeFilter2 = new AutocompleteFilter.Builder()
-                .setCountry("IN")
-                .build();
-        autocompleteFragment2.setFilter(typeFilter2);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -276,7 +325,6 @@ public class AddTrip extends AppCompatActivity {
                 } else {
                     if (single.isChecked()) {
                         TripDTO t;
-
                         TripDAOImpl tripDAO = new TripDAOImpl(AddTrip.this);
                         TripDTO tripDTO = new TripDTO();
                         tripDTO.setTrip_name(trip_name);
@@ -289,13 +337,14 @@ public class AddTrip extends AppCompatActivity {
                         tripDTO.setTrip_date(alarmDate.getText().toString());
                         tripDTO.setTrip_time(alarmClock.getText().toString());
                         tripDTO.setTrip_rounded(0);
-                        tripDTO.setProfile_id(profileDTO.getProfile_id());
+                        //profileDTO.getProfile_id()
+                        tripDTO.setProfile_id(123);
                         tripDTO.setTrip_status(com.example.travelmanager.database.dto.Status.UPCOMING);
                         tripDTO.setTrip_millisecond((double) myCalendar.getTimeInMillis());
 
                         //insert trip
                         tripDAO.insertTrip(tripDTO);
-                        t = tripDAO.getTripByName(trip_name, profileDTO.getProfile_id());
+                        t = tripDAO.getTripByName(trip_name, 123);
                         DebugDB.getAddressLog();
                         int i = m.trips.size();
                         //alarm logic
