@@ -21,5 +21,43 @@
     <item android:id="@+id/signout"
         android:title="Log Out"
         app:showAsAction="never"/>
+<!--    <string-array android:name="nearby_option">-->
 
+<!--        <item android:title="TODO">Select a Type</item>-->
+<!--        <item android:title="TODO">Airport</item>-->
+<!--        <item>ATM Booth</item>-->
+<!--        <item>Bank</item>-->
+<!--        <item>Bakery</item>-->
+<!--        <item>Bar</item>-->
+<!--        <item>Book Store</item>-->
+<!--        <item>Bus Station</item>-->
+<!--        <item>Car Rental</item>-->
+<!--        <item>Car Repair</item>-->
+<!--        <item>Car Wash</item>-->
+<!--        <item>Coffee Shop</item>-->
+<!--        <item>Clothing Store</item>-->
+<!--        <item>Dentist</item>-->
+<!--        <item>Doctor</item>-->
+<!--        <item>Electronics Store</item>-->
+<!--        <item>Embassy</item>-->
+<!--        <item>Fire Service</item>-->
+<!--        <item>Gas Station</item>-->
+<!--        <item>Govt Office</item>-->
+<!--        <item>Gym</item>-->
+<!--        <item>Hospital</item>-->
+<!--        <item>Jewelry Store</item>-->
+<!--        <item>Laundry</item>-->
+<!--        <item>Mosque</item>-->
+<!--        <item>Movie Theater</item>-->
+<!--        <item>Park</item>-->
+<!--        <item>Pharmacy</item>-->
+<!--        <item>Police Nearby</item>-->
+<!--        <item>Post Office</item>-->
+<!--        <item>Restaurant</item>-->
+<!--        <item>School</item>-->
+<!--        <item>Shopping Mall</item>-->
+<!--        <item android:title="TODO">University</item>-->
+
+
+<!--    </string-array>-->
 </menu>

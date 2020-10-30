@@ -1,4 +1,4 @@
-package com.example.travelmanager.maps;
+package com.example.travelmanager.maps.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,18 +15,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +29,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.travelmanager.MainActivity;
 import com.example.travelmanager.R;
+import com.example.travelmanager.maps.activities.DirectionParser;
+import com.example.travelmanager.maps.models.PlacesConstant;
+import com.example.travelmanager.maps.models.Results;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -79,9 +76,6 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
     Marker lastmarker;
     Context context;
     View mapview;
-    private DrawerLayout dl;
-    private ActionBarDrawerToggle t;
-    private NavigationView nv;
     static double latitude;
     static double currlatitude;
     static double longitude;
@@ -93,6 +87,8 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
     private LinearLayout main_ll;
     private SearchView searchbar;
     private TextView dist_time;
+    String id;
+    List<Results> results = new ArrayList<Results>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,14 +116,20 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
               startActivity(intent);
             }
         });
+        Intent act=getIntent();
+         id=act.getStringExtra("id");
+
+        if(id.equals("1")){
+            results = PlacesConstant.results;
+            Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_LONG).show();
+        };
+
         searchbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSearchCalled();
             }
         });
-
-
     }
 
 
@@ -153,7 +155,7 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
             Places.initialize(getApplicationContext(), "AIzaSyDYoQybddM6c-Daz0bHVe7h2tuyzxHmW1k");
         }
 
-        PlacesClient placesClient = Places.createClient(this);
+       // PlacesClient placesClient = Places.createClient(this);
     }
 
     @Override
@@ -256,6 +258,28 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     origin = "origin=" + currlatitude + "," + currlongitude;
                     destination = "destination=" + latlang.latitude + "," + latlang.longitude;
                     getRoute();
+                }
+            }
+            if(id.equals("1")){
+                for (int i = 0; i < results.size(); i++) {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    Results googlePlace = results.get(i);
+                    double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
+                    double lng = Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
+                    String placeName = googlePlace.getName();
+                    String vicinity = googlePlace.getVicinity();
+                    LatLng latLng = new LatLng(lat, lng);
+                    markerOptions.position(latLng);
+                    markerOptions.title(placeName);
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    // add marker to map
+                    mMap.addMarker(markerOptions).showInfoWindow();;
+                    // move camera
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+                    mMap.getUiSettings().setCompassEnabled(true);
+                    mMap.getUiSettings().setZoomControlsEnabled(true);
                 }
             }
         }

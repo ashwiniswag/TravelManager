@@ -1,4 +1,4 @@
-package com.example.travelmanager.maps;
+package com.example.travelmanager.maps.activities;
 
 import com.google.android.gms.maps.model.LatLng;
 

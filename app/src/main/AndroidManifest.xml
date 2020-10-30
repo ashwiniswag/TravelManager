@@ -2,10 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.travelmanager">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -28,14 +34,47 @@
         <activity android:name=".Username" />
         <activity android:name=".Signup" />
         <activity android:name=".Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        </activity>
+        <activity android:name=".maps.activities.DisplayActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".maps.mapfinalactivity" />
+        <activity android:name=".maps.activities.PlaceDetailsActivity" />
+        <activity android:name=".maps.activities.PlaceOnMapActivity" />
+        <activity android:name=".maps.activities.ShowPlacesOnMapActivity"/>
+        <activity android:name=".maps.activities.mapfinalactivity">
+        </activity>
+        <activity android:name=".itineary.addtrip.ProfileActivity" />
+        <activity android:name=".itineary.addtrip.AddTrip" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".itineary.addtrip.DetailsActivity" />
+        <activity
+            android:name=".itineary.addtrip.AlertActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+
+        <receiver
+            android:name=".itineary.addtrip.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".itineary.addtrip.RingtonePlayingService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".itineary.addtrip.FloatingWidgetService"
+            android:enabled="true"
+            android:exported="true" />
+
+<!--        <activity android:name=".itineary.addtrip.AboutActivity"></activity>-->
     </application>
 
 </manifest>
