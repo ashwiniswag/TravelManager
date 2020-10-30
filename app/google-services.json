@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "307429605615",
-    "firebase_url": "https://travelmanager-53642.firebaseio.com",
-    "project_id": "travelmanager-53642",
-    "storage_bucket": "travelmanager-53642.appspot.com"
+    "project_number": "744665058494",
+    "firebase_url": "https://travelmanager-7641e.firebaseio.com",
+    "project_id": "travelmanager-7641e",
+    "storage_bucket": "travelmanager-7641e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:307429605615:android:e5d9bcbf4bd47a61e9db1a",
+        "mobilesdk_app_id": "1:744665058494:android:2bfaaae935b20886a1a2ef",
         "android_client_info": {
           "package_name": "com.example.travelmanager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "307429605615-3eae37jvodeu57igq2876co2bcc3074a.apps.googleusercontent.com",
+          "client_id": "744665058494-589cofgcspl285qtuipk1kmj9s9hcqk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelmanager",
+            "certificate_hash": "01bc6deaee3985a08d68cc8bbdac7c69f949aec8"
+          }
+        },
+        {
+          "client_id": "744665058494-sjff2i2pndborktddhok5rg2h59ufo4l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDuj_bpiJlGooQolx3X0gOTugDOGSO4rIg"
+          "current_key": "AIzaSyAQJXTalu59X6lH4wxHF7H-toBITvoVow4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "307429605615-3eae37jvodeu57igq2876co2bcc3074a.apps.googleusercontent.com",
+              "client_id": "744665058494-sjff2i2pndborktddhok5rg2h59ufo4l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

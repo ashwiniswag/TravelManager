@@ -20,6 +20,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelmanager.explore.Explore;
+import com.example.travelmanager.itineary.DaysStore;
 import com.example.travelmanager.itineary.StartPlanning;
 import com.example.travelmanager.maps.mapfinalactivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -99,14 +101,14 @@ public class Post extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.explore:
-                        startActivity(new Intent(getApplicationContext(), mapfinalactivity.class));
+                        startActivity(new Intent(getApplicationContext(), Explore.class));
                         finish();
                         break;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         finish();
                         break;
-                    case R.id.plan:
+                    case R.id.plans:
                         startActivity(new Intent(getApplicationContext(), StartPlanning.class));
                         finish();
                         break;
@@ -153,8 +155,14 @@ public class Post extends AppCompatActivity {
                     try {
                         InputStream is = getContentResolver().openInputStream(img);
                         Bitmap bm= BitmapFactory.decodeStream(is);
-                        bitmap.add(bm);
-                        gridadpter.notifyDataSetChanged();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        if(baos.toByteArray().length<=1200000) {
+                            bitmap.add(bm);
+                            gridadpter.notifyDataSetChanged();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Please select images with size less than 1mb",Toast.LENGTH_SHORT).show();
+                        }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

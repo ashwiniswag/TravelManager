@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelmanager.explore.Explore;
 import com.example.travelmanager.itineary.StartPlanning;
 import com.example.travelmanager.maps.mapfinalactivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -99,14 +100,14 @@ public class Profile extends AppCompatActivity{
 
                 switch (item.getItemId()){
                     case R.id.explore:
-                        startActivity(new Intent(getApplicationContext(), mapfinalactivity.class));
+                        startActivity(new Intent(getApplicationContext(), Explore.class));
                         finish();
                         break;
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         finish();
                         break;
-                    case R.id.plan:
+                    case R.id.plans:
                         startActivity(new Intent(getApplicationContext(), StartPlanning.class));
                         finish();
                         break;

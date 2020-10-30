@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.travelmanager.explore.Explore;
 import com.example.travelmanager.itineary.DaysStore;
 import com.example.travelmanager.itineary.StartPlanning;
 import com.example.travelmanager.maps.*;
@@ -80,22 +81,20 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.explore:
-                        startActivity(new Intent(MainActivity.this,mapfinalactivity.class));
+                        startActivity(new Intent(MainActivity.this, Explore.class));
                         break;
                     case R.id.post:
                         startActivity(new Intent(MainActivity.this,Post.class));
                         break;
                     case R.id.plans:
-                        startActivity(new Intent(getApplicationContext(), DaysStore.class));
+                        startActivity(new Intent(getApplicationContext(), StartPlanning.class));
                         break;
                     case R.id.profile:
-                        bottomNavigationView.setSelectedItemId(R.id.home);
                         startActivity(new Intent(getApplicationContext(),Profile.class));
                         break;
                     default:
                         return false;
                 }
-                bottomNavigationView.setSelectedItemId(R.id.home);
                 return true;
             }
         });
@@ -122,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.signout:
                 logout();
                 finish();
-//            case R.id.map:
-//                startActivity(new Intent(MainActivity.this,mapfinalactivity.class));
-//                break;
+            case R.id.map:
+                startActivity(new Intent(MainActivity.this,mapfinalactivity.class));
+                break;
 //            case R.id.post:
 //                startActivity(new Intent(MainActivity.this,Post.class));
 //                break;
