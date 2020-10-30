@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,11 +50,18 @@ public class Adapter_Place extends RecyclerView.Adapter<Adapter_Place.Viewholder
         private TextView state,destination;
         private ImageView img;
 
-        public Viewholder(@NonNull View itemView) {
+        public Viewholder(@NonNull final View itemView) {
             super(itemView);
             state=itemView.findViewById(R.id.state);
             destination=itemView.findViewById(R.id.destination);
             img=itemView.findViewById(R.id.place_img);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(),state.getText().toString(),Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
 

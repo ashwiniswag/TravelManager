@@ -212,7 +212,7 @@ public class AddTrip extends AppCompatActivity {
 
         final PlaceAutocompleteFragment autocompleteFragment1 = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-        autocompleteFragment1.getView().setBackgroundColor(Color.WHITE);
+        autocompleteFragment1.getView().setBackgroundColor(Color.YELLOW);
         autocompleteFragment1.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {

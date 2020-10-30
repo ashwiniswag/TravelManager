@@ -28,7 +28,8 @@ import android.widget.Toast;
 import com.example.travelmanager.explore.Explore;
 import com.example.travelmanager.itineary.DaysStore;
 import com.example.travelmanager.itineary.StartPlanning;
-import com.example.travelmanager.maps.*;
+//import com.example.travelmanager.maps.*;
+import com.example.travelmanager.itineary.addtrip.AddTrip;
 import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this,Post.class));
                         break;
                     case R.id.plans:
-                        startActivity(new Intent(getApplicationContext(), StartPlanning.class));
+                        startActivity(new Intent(getApplicationContext(), AddTrip.class));
                         break;
                     case R.id.profile:
                         startActivity(new Intent(getApplicationContext(),Profile.class));
