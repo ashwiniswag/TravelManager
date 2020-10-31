@@ -79,6 +79,7 @@ public class LocationFragment extends Fragment {
                 intent.putExtra("id","0");
                 intent.putExtra("lat",lat);
                 intent.putExtra("lng",lng);
+                Toast.makeText(v.getContext(),"sending intent",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

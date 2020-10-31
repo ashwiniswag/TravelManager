@@ -148,6 +148,7 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                 }
             }
             else if(id.equals("0")){
+                Toast.makeText(this,"map from location",Toast.LENGTH_SHORT).show();
                 Bundle bundle = getIntent().getExtras();
                 lat = bundle.getDouble("lat");
                 lng = bundle.getDouble("lng");
@@ -264,8 +265,8 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                             .alpha(1f))
                             .showInfoWindow();
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13.0f));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(destinationPosition));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(destinationPosition, 13.0f));
                     mMap.getUiSettings().setCompassEnabled(true);
                     mMap.getUiSettings().setZoomControlsEnabled(true);
                     origin="origin="+lat+","+lng;
@@ -277,39 +278,38 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     fetchUrl.execute(url);
                     //move map camera
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition,15.0f));
                 }
                 else {
                     pos = new LatLng(Double.valueOf(location2.getLat()), Double.valueOf(location2.getLng()));
                     //Toast.makeText(this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
                     //marker.remove();
-                    this.mMap.addMarker(new MarkerOptions().position(pos)
+                    mMap.addMarker(new MarkerOptions().position(pos)
                             .title(results2.getName())
                             .snippet(results2.getVicinity())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                             .alpha(1f));
 
-                    this.mMap.getUiSettings().setCompassEnabled(true);
-                    this.mMap.getUiSettings().setZoomControlsEnabled(true);
-                    this.mMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
-                    this.mMap.animateCamera(CameraUpdateFactory.zoomTo(16.5f));
+                    mMap.getUiSettings().setCompassEnabled(true);
+                    mMap.getUiSettings().setZoomControlsEnabled(true);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,16.5f));
                 }
             }
             else if(id.equals("0")){
                 pos = new LatLng(lat, lng);
                 //Toast.makeText(this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
                 //marker.remove();
-                this.mMap.addMarker(new MarkerOptions().position(pos)
-                        .title(results2.getName())
-                        .snippet(results2.getVicinity())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                mMap.addMarker(new MarkerOptions().position(pos)
+                        .title("YOUR LOCATION")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                         .alpha(1f));
 
-                this.mMap.getUiSettings().setCompassEnabled(true);
-                this.mMap.getUiSettings().setZoomControlsEnabled(true);
-                this.mMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
-                this.mMap.animateCamera(CameraUpdateFactory.zoomTo(16.5f));
-            }
+                mMap.getUiSettings().setCompassEnabled(true);
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos,16.5f));
+            }else
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(currlatitude,currlongitude)));
             //mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
