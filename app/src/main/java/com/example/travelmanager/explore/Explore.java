@@ -102,12 +102,12 @@ public class Explore extends AppCompatActivity {
     }
 
     public void populateplaces(){
-        placeClasses.add(new PlaceClass("Himanchal Pradesh","Shimla",R.drawable.shimla));
-        placeClasses.add(new PlaceClass("Uttrakhand","Nanital",R.drawable.nainital));
-        placeClasses.add(new PlaceClass("West Bengal","Darjeeling",R.drawable.darjeeling));
+        placeClasses.add(new PlaceClass("Himanchal Pradesh","Shimla",R.drawable.jaipur));
+        placeClasses.add(new PlaceClass("Uttrakhand","Nanital",R.drawable.jaipur));
+        placeClasses.add(new PlaceClass("West Bengal","Darjeeling",R.drawable.jaipur));
         placeClasses.add(new PlaceClass("Rajasthan","Jaipur",R.drawable.jaipur));
-        placeClasses.add(new PlaceClass("Rajasthan","Udaipur",R.drawable.udaipur));
-        placeClasses.add(new PlaceClass("Gujarat","Kutch",R.drawable.kutch));
+        placeClasses.add(new PlaceClass("Rajasthan","Udaipur",R.drawable.jaipur));
+        placeClasses.add(new PlaceClass("Gujarat","Kutch",R.drawable.jaipur));
         padapter.notifyDataSetChanged();
     }
 

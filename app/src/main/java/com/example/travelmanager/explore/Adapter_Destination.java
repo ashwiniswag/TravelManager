@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.travelmanager.R;
 
@@ -46,10 +47,18 @@ public class Adapter_Destination extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v= inflater.inflate(R.layout.destination_item,null);
-        TextView text=v.findViewById(R.id.destination);
+        final TextView text=v.findViewById(R.id.destination);
         ImageView img=v.findViewById(R.id.place_img);
         text.setText(plans.get(position));
         img.setImageResource(planpics.get(position));
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),text.getText(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return v;
     }
 }

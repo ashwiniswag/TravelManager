@@ -126,6 +126,12 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
 //            }
 //            ;
 
+            if (id.equals("1")) {
+                results = PlacesConstant.results;
+                Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_LONG).show();
+            }
+            ;
+//        }
         searchbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
