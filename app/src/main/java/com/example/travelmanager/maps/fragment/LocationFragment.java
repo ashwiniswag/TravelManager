@@ -3,6 +3,7 @@ package com.example.travelmanager.maps.fragment;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -24,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.travelmanager.R;
 import com.example.travelmanager.maps.activities.DisplayActivity;
+import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,7 +53,7 @@ public class LocationFragment extends Fragment {
     private TextView textViewCountryCode;
     private TextView textViewCountry;
     private TextView textViewDivision;
-
+    private TextView showmap;
     public LocationFragment() {
     }
 
@@ -68,9 +70,18 @@ public class LocationFragment extends Fragment {
         textViewCountry = view.findViewById(R.id.textViewCountry);
         textViewDivision = view.findViewById(R.id.textViewDivision);
         textViewPostalCode = view.findViewById(R.id.postalCode);
-
+        showmap=view.findViewById(R.id.showmap);
         locationService();
-
+        showmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(v.getContext(), mapfinalactivity.class);
+                intent.putExtra("id","0");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
+            }
+        });
         if (lat != 0 && lng != 0) {
             getAddress();
         }

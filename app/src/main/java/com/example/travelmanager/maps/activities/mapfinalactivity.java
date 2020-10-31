@@ -75,10 +75,16 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
     private View locationButton;
     Marker lastmarker;
     Context context;
+    private Results results2;
     View mapview;
     static double latitude;
+    private LatLng pos;
+    private com.example.travelmanager.maps.models.Location location1, location2;
+    private Marker marker;
+    private double lat, lng;
     static double currlatitude;
     static double longitude;
+    private String type;
     static double currlongitude;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
@@ -116,22 +122,36 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
               startActivity(intent);
             }
         });
-//        Intent act=getIntent();
-//
-//            id = act.getStringExtra("id");
-//
-//            if (id.equals("1")) {
-//                results = PlacesConstant.results;
-//                Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_LONG).show();
-//            }
-//            ;
+        Intent act=getIntent();
+
+            id = act.getStringExtra("id");
+
+
 
             if (id.equals("1")) {
                 results = PlacesConstant.results;
                 Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_LONG).show();
             }
-            ;
-//        }
+            else if(id.equals("2")){
+                Bundle bundle = getIntent().getExtras();
+
+                if (bundle != null) {
+                    results2 = (Results) bundle.getSerializable("result");
+                    lat = bundle.getDouble("lat");
+                    lng = bundle.getDouble("lng");
+                    type = bundle.getString("type");
+                    location2 = results2.getGeometry().getLocation();
+                    Toast.makeText(this, String.valueOf(lat), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Got Nothing!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            else if(id.equals("0")){
+                Bundle bundle = getIntent().getExtras();
+                lat = bundle.getDouble("lat");
+                lng = bundle.getDouble("lng");
+            }
         searchbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,6 +241,75 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     //lastmarker = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
             });
+            if(id.equals("2")) {
+                if (type.equals("distance")) {
+                    LatLng destinationPosition = new LatLng(Double.valueOf(location2.getLat()), Double.valueOf(location2.getLng()));
+                    LatLng currentPosition = new LatLng(lat, lng);
+                    mMap.addMarker(new MarkerOptions().position(destinationPosition)
+                            .title(results2.getName())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                            .snippet(results2.getVicinity())
+                            .alpha(1f))
+                            .showInfoWindow();
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(destinationPosition));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(destinationPosition, 13.0f));
+                    mMap.getUiSettings().setCompassEnabled(true);
+                    mMap.getUiSettings().setZoomControlsEnabled(true);
+
+                    // for current
+                    mMap.addMarker(new MarkerOptions().position(currentPosition)
+                            .title("Your Location")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                            .alpha(1f))
+                            .showInfoWindow();
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13.0f));
+                    mMap.getUiSettings().setCompassEnabled(true);
+                    mMap.getUiSettings().setZoomControlsEnabled(true);
+                    origin="origin="+lat+","+lng;
+                    destination="destination="+Double.valueOf(location2.getLat())+","+Double.valueOf(location2.getLng());
+                    String url = getDirectionsUrl(origin,destination);
+
+                    FetchUrl fetchUrl = new FetchUrl();
+
+                    fetchUrl.execute(url);
+                    //move map camera
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+                }
+                else {
+                    pos = new LatLng(Double.valueOf(location2.getLat()), Double.valueOf(location2.getLng()));
+                    //Toast.makeText(this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
+                    //marker.remove();
+                    this.mMap.addMarker(new MarkerOptions().position(pos)
+                            .title(results2.getName())
+                            .snippet(results2.getVicinity())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                            .alpha(1f));
+
+                    this.mMap.getUiSettings().setCompassEnabled(true);
+                    this.mMap.getUiSettings().setZoomControlsEnabled(true);
+                    this.mMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
+                    this.mMap.animateCamera(CameraUpdateFactory.zoomTo(16.5f));
+                }
+            }
+            else if(id.equals("0")){
+                pos = new LatLng(lat, lng);
+                //Toast.makeText(this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
+                //marker.remove();
+                this.mMap.addMarker(new MarkerOptions().position(pos)
+                        .title(results2.getName())
+                        .snippet(results2.getVicinity())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        .alpha(1f));
+
+                this.mMap.getUiSettings().setCompassEnabled(true);
+                this.mMap.getUiSettings().setZoomControlsEnabled(true);
+                this.mMap.moveCamera(CameraUpdateFactory.newLatLng(pos)); // move the camera to the position
+                this.mMap.animateCamera(CameraUpdateFactory.zoomTo(16.5f));
+            }
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(currlatitude,currlongitude)));
             //mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -267,28 +356,28 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     getRoute();
                 }
          }
-//            if(id.equals("1")){
-//                for (int i = 0; i < results.size(); i++) {
-//                    MarkerOptions markerOptions = new MarkerOptions();
-//                    Results googlePlace = results.get(i);
-//                    double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
-//                    double lng = Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
-//                    String placeName = googlePlace.getName();
-//                    String vicinity = googlePlace.getVicinity();
-//                    LatLng latLng = new LatLng(lat, lng);
-//                    markerOptions.position(latLng);
-//                    markerOptions.title(placeName);
-//                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-//                    // add marker to map
-//                    mMap.addMarker(markerOptions).showInfoWindow();;
-//                    // move camera
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//                    //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
-//                    mMap.getUiSettings().setCompassEnabled(true);
-//                    mMap.getUiSettings().setZoomControlsEnabled(true);
-//                }
-//            }
+            if(id.equals("1")){
+                for (int i = 0; i < results.size(); i++) {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    Results googlePlace = results.get(i);
+                    double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
+                    double lng = Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
+                    String placeName = googlePlace.getName();
+                    String vicinity = googlePlace.getVicinity();
+                    LatLng latLng = new LatLng(lat, lng);
+                    markerOptions.position(latLng);
+                    markerOptions.title(placeName);
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    // add marker to map
+                    mMap.addMarker(markerOptions).showInfoWindow();;
+                    // move camera
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+                    mMap.getUiSettings().setCompassEnabled(true);
+                    mMap.getUiSettings().setZoomControlsEnabled(true);
+                }
+            }
         }
 
     }

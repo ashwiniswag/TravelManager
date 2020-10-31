@@ -2,9 +2,11 @@ package com.example.travelmanager.maps.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,6 +22,7 @@ public class DisplayActivity extends AppCompatActivity {
     public TabLayout tabLayout;
     public ViewPager viewPager;
 
+    public static String placeType = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,9 @@ public class DisplayActivity extends AppCompatActivity {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
-
+        Intent intent=getIntent();
+        Bundle bun= intent.getExtras();
+        placeType= bun.getString("type");
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

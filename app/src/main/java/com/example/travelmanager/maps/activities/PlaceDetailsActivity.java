@@ -90,8 +90,8 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         linearLayoutShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlaceDetailsActivity.this, PlaceOnMapActivity.class);
-                intent.putExtra("id",2);
+                Intent intent = new Intent(PlaceDetailsActivity.this, mapfinalactivity.class);
+                intent.putExtra("id","2");
                 intent.putExtra("result", results);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
@@ -103,9 +103,9 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         linearLayoutShowDistanceOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlaceDetailsActivity.this, PlaceOnMapActivity.class);
+                Intent intent = new Intent(PlaceDetailsActivity.this, mapfinalactivity.class);
                 intent.putExtra("result", results);
-                intent.putExtra("id",2);
+                intent.putExtra("id","2");
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("type", "distance");

@@ -1,5 +1,6 @@
 package com.example.travelmanager.explore;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelmanager.R;
+import com.example.travelmanager.maps.activities.DisplayActivity;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
@@ -58,6 +60,9 @@ public class Adapter_Category extends RecyclerView.Adapter<Adapter_Category.View
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),text.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(v.getContext(), DisplayActivity.class);
+                    intent.putExtra("type",text.getText().toString());
+                    v.getContext().startActivity(intent);
                 }
             });
 

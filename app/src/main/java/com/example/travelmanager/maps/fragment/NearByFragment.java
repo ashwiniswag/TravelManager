@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelmanager.R;
+import com.example.travelmanager.maps.activities.DisplayActivity;
 import com.example.travelmanager.maps.activities.ShowPlacesOnMapActivity;
 import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.example.travelmanager.maps.adapter.PlaceRecyclerViewAdapter;
@@ -40,6 +41,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.travelmanager.maps.activities.DisplayActivity.placeType;
 
 public class NearByFragment extends Fragment {
 
@@ -59,7 +62,6 @@ public class NearByFragment extends Fragment {
 
     double lat =0;
     double lng =0;
-    private String placeType = "";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
 
@@ -154,8 +156,8 @@ public class NearByFragment extends Fragment {
                             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
                         }
                     }
-                    placeType = "Bank";
-                    //Toast.makeText(getContext(),Double.toString(lng),Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getContext(),Double.toString(lng),Toast.LENGTH_SHORT).show();
                     getNearbyPlaces();
 
                 }
