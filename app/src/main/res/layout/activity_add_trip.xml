@@ -66,9 +66,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
-        android:hint="Source"
         />
-
+    <!--    "com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"-->
     <fragment
         android:id="@+id/place_autocomplete_fragment2"
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
@@ -78,7 +77,6 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
         android:textColorHint="#ffffff"
-        android:hint="Destination"
 
         />
 

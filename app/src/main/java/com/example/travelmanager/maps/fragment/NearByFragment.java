@@ -75,7 +75,6 @@ public class NearByFragment extends Fragment {
 
         locationService();
 
-
         //Toast.makeText(getContext(),placeType,Toast.LENGTH_SHORT).show();
 //        imageViewSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override

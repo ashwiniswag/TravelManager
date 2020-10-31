@@ -198,9 +198,8 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
 
         this.mMap = gMap;
         checkPermission();
-
+    
         if (mMap != null) {
-
             locationButton = ((View) mapview.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             // and next place it, on bottom right (as Google Maps app)
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
@@ -267,29 +266,29 @@ public class mapfinalactivity extends AppCompatActivity implements OnMapReadyCal
                     destination = "destination=" + latlang.latitude + "," + latlang.longitude;
                     getRoute();
                 }
-            }
-            if(id.equals("1")){
-                for (int i = 0; i < results.size(); i++) {
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    Results googlePlace = results.get(i);
-                    double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
-                    double lng = Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
-                    String placeName = googlePlace.getName();
-                    String vicinity = googlePlace.getVicinity();
-                    LatLng latLng = new LatLng(lat, lng);
-                    markerOptions.position(latLng);
-                    markerOptions.title(placeName);
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                    // add marker to map
-                    mMap.addMarker(markerOptions).showInfoWindow();;
-                    // move camera
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
-                    mMap.getUiSettings().setCompassEnabled(true);
-                    mMap.getUiSettings().setZoomControlsEnabled(true);
-                }
-            }
+         }
+//            if(id.equals("1")){
+//                for (int i = 0; i < results.size(); i++) {
+//                    MarkerOptions markerOptions = new MarkerOptions();
+//                    Results googlePlace = results.get(i);
+//                    double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
+//                    double lng = Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
+//                    String placeName = googlePlace.getName();
+//                    String vicinity = googlePlace.getVicinity();
+//                    LatLng latLng = new LatLng(lat, lng);
+//                    markerOptions.position(latLng);
+//                    markerOptions.title(placeName);
+//                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//                    // add marker to map
+//                    mMap.addMarker(markerOptions).showInfoWindow();;
+//                    // move camera
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                    //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+//                    mMap.getUiSettings().setCompassEnabled(true);
+//                    mMap.getUiSettings().setZoomControlsEnabled(true);
+//                }
+//            }
         }
 
     }

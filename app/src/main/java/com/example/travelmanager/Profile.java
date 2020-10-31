@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.travelmanager.explore.Explore;
 import com.example.travelmanager.itineary.StartPlanning;
-//import com.example.travelmanager.maps.mapfinalactivity;
+import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
