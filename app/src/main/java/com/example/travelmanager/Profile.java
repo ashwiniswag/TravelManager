@@ -274,7 +274,7 @@ public class Profile extends AppCompatActivity{
         Toast.makeText(getApplicationContext(),"DisplayImg",Toast.LENGTH_SHORT).show();
         StorageReference sref = FirebaseStorage.getInstance().getReference().child(userid).child("DP");
 
-        final long ONE_MEGABYTE =1024 * 1024 * 10;
+        final long ONE_MEGABYTE =1024 * 1024 * 2;
         sref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
@@ -289,7 +289,7 @@ public class Profile extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(),"This image is not present " + userid,Toast.LENGTH_SHORT).show();
             }
         });
-//
+
 //         noOfTrips
         Toast.makeText(getApplicationContext(),"No_ofTrips",Toast.LENGTH_SHORT).show();
         DatabaseReference ref1=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Posts");
@@ -299,13 +299,12 @@ public class Profile extends AppCompatActivity{
                 Iterator<DataSnapshot> it=snapshot.getChildren().iterator();
                 int c=0;
                 while(it.hasNext()){
-                    DataSnapshot item=it.next();
+                    it.next();
                     c++;
                 }
-//                t=c;
                 trip.setText(Integer.toString(c));
             }
-//
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -316,14 +315,15 @@ public class Profile extends AppCompatActivity{
 //        // noOfFollowers
 //
         Toast.makeText(getApplicationContext(),"No_ofFollowers",Toast.LENGTH_SHORT).show();
-        ref=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Follower");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ref2=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Follower");
+        ref2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterator<DataSnapshot> it=snapshot.getChildren().iterator();
                 int c=0;
                 while (it.hasNext()){
                     c++;
+                    it.next();
                 }
                 follower.setText(Integer.toString(c));
             }
@@ -333,7 +333,7 @@ public class Profile extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(),"Failed Follower",Toast.LENGTH_SHORT).show();
             }
         });
-//
+
 //        // noOfFollowing
         Toast.makeText(getApplicationContext(),"No_ofFollowing",Toast.LENGTH_SHORT).show();
         ref=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Following");

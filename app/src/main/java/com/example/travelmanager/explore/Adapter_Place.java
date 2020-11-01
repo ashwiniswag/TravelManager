@@ -1,5 +1,7 @@
 package com.example.travelmanager.explore;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelmanager.Adapter;
 import com.example.travelmanager.R;
+import com.example.travelmanager.staticdata.InsidePlace;
 
 import java.util.List;
 
@@ -49,17 +52,21 @@ public class Adapter_Place extends RecyclerView.Adapter<Adapter_Place.Viewholder
 
         private TextView state,destination;
         private ImageView img;
+        private Context context;
 
         public Viewholder(@NonNull final View itemView) {
             super(itemView);
             state=itemView.findViewById(R.id.state);
             destination=itemView.findViewById(R.id.destination);
             img=itemView.findViewById(R.id.place_img);
-
+            context=itemView.getContext();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(),state.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(),destination.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(itemView.getContext(), InsidePlace.class);
+                    intent.putExtra("Place",destination.getText().toString());
+                    context.startActivity(intent);
                 }
             });
 
