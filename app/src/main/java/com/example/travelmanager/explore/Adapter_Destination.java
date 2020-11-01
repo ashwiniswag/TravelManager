@@ -1,6 +1,7 @@
 package com.example.travelmanager.explore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travelmanager.R;
+import com.example.travelmanager.staticdata.InsidePlace;
 
 import org.w3c.dom.Text;
 
@@ -45,7 +47,7 @@ public class Adapter_Destination extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v= inflater.inflate(R.layout.destination_item,null);
         final TextView text=v.findViewById(R.id.destination);
         ImageView img=v.findViewById(R.id.place_img);
@@ -55,7 +57,11 @@ public class Adapter_Destination extends BaseAdapter {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),text.getText(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(v.getContext(),text.getText(),Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(v.getContext(), InsidePlace.class);
+                intent.putExtra("Place",plans.get(position));
+//                Toast.makeText(context.getApplicationContext(),text.getText().toString(),Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
             }
         });
 

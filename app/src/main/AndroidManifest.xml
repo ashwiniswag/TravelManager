@@ -4,14 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
 
     <application
         android:allowBackup="true"
@@ -20,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".explore.Explore"></activity>
+        <activity android:name=".staticdata.InsidePlace"></activity>
+        <activity android:name=".explore.Explore" />
         <activity android:name=".itineary.DaysStore" />
         <activity android:name=".itineary.StartPlanning" />
         <activity android:name=".FindFollower" />
@@ -40,24 +38,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".maps.activities.DisplayActivity">
-
-        </activity>
+        <activity android:name=".maps.activities.DisplayActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".maps.activities.PlaceDetailsActivity" />
         <activity android:name=".maps.activities.PlaceOnMapActivity" />
-        <activity android:name=".maps.activities.ShowPlacesOnMapActivity"/>
-        <activity android:name=".maps.activities.mapfinalactivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".maps.activities.ShowPlacesOnMapActivity" />
+        <activity android:name=".maps.activities.mapfinalactivity" />
         <activity android:name=".itineary.addtrip.ProfileActivity" />
-        <activity android:name=".itineary.addtrip.AddTrip" >
-
-        </activity>
+        <activity android:name=".itineary.addtrip.AddTrip"></activity>
         <activity android:name=".itineary.addtrip.DetailsActivity" />
         <activity
             android:name=".itineary.addtrip.AlertActivity"
@@ -79,8 +67,6 @@
             android:name=".itineary.addtrip.FloatingWidgetService"
             android:enabled="true"
             android:exported="true" />
-
-<!--        <activity android:name=".itineary.addtrip.AboutActivity"></activity>-->
     </application>
 
 </manifest>

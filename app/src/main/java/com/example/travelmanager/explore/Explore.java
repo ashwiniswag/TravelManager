@@ -103,7 +103,7 @@ public class Explore extends AppCompatActivity {
 
     public void populateplaces(){
         placeClasses.add(new PlaceClass("Himanchal Pradesh","Shimla",R.drawable.jaipur));
-        placeClasses.add(new PlaceClass("Uttrakhand","Nanital",R.drawable.jaipur));
+        placeClasses.add(new PlaceClass("Uttrakhand","Nainital",R.drawable.jaipur));
         placeClasses.add(new PlaceClass("West Bengal","Darjeeling",R.drawable.jaipur));
         placeClasses.add(new PlaceClass("Rajasthan","Jaipur",R.drawable.jaipur));
         placeClasses.add(new PlaceClass("Rajasthan","Udaipur",R.drawable.jaipur));
@@ -155,12 +155,12 @@ public class Explore extends AppCompatActivity {
     public void populatedestination(){
         plans.add("Adventure Sports");
         plans.add("Beaches");
-        plans.add("Heritage");
-        plans.add("Hill Station");
-        plans.add("Honeymoon Destination");
-        plans.add("Nature Lap");
-        plans.add("Pilgrimage");
-        plans.add("Trekking");
+        plans.add("Heritage Sites");
+        plans.add("Hill Stations");
+        plans.add("Honeymoon Destinations");
+        plans.add("Nature");
+        plans.add("Pilgrimages");
+        plans.add("Trekking Routes");
 
         planpics.add(R.drawable.jaipur);
         planpics.add(R.drawable.jaipur);
