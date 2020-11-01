@@ -227,6 +227,7 @@ public class Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").getValue()==null){
                     startActivity(new Intent(getApplicationContext(),Username.class));
+                    finish();
                 }
                 else{
                     String username=snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").child("DisplayName").getValue().toString();
@@ -234,6 +235,7 @@ public class Login extends AppCompatActivity {
                     meth(username,email,"12345");
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
 //                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                    finish();
                 }
             }
 

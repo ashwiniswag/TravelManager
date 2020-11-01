@@ -105,12 +105,12 @@ public class Explore extends AppCompatActivity {
     }
 
     public void populateplaces(){
-        placeClasses.add(new PlaceClass("Himanchal Pradesh","Shimla",R.drawable.jaipur));
-        placeClasses.add(new PlaceClass("Uttrakhand","Nainital",R.drawable.jaipur));
-        placeClasses.add(new PlaceClass("West Bengal","Darjeeling",R.drawable.jaipur));
+        placeClasses.add(new PlaceClass("Himanchal Pradesh","Shimla",R.drawable.shimla));
+        placeClasses.add(new PlaceClass("Uttrakhand","Nainital",R.drawable.nainital));
+        placeClasses.add(new PlaceClass("West Bengal","Darjeeling",R.drawable.darjeeling));
         placeClasses.add(new PlaceClass("Rajasthan","Jaipur",R.drawable.jaipur));
-        placeClasses.add(new PlaceClass("Rajasthan","Udaipur",R.drawable.jaipur));
-        placeClasses.add(new PlaceClass("Gujarat","Kutch",R.drawable.jaipur));
+        placeClasses.add(new PlaceClass("Rajasthan","Udaipur",R.drawable.udaipur));
+        placeClasses.add(new PlaceClass("Gujarat","Kutch",R.drawable.kutch));
         padapter.notifyDataSetChanged();
     }
 
@@ -121,6 +121,8 @@ public class Explore extends AppCompatActivity {
         categoryClass.add(new CategoryClass("Food",R.drawable.food2x));
         categoryClass.add(new CategoryClass("School",R.drawable.school2x));
         categoryClass.add(new CategoryClass("Parks",R.drawable.park2x));
+        categoryClass.add(new CategoryClass("ATM",R.drawable.atm_2x));
+        categoryClass.add(new CategoryClass("Attractions",R.drawable.attractions_2x));
         cadapter.notifyDataSetChanged();
 /*        <!--        <item>ATM Booth</item>-->
 <!--        <item>Bank</item>-->
@@ -165,24 +167,27 @@ public class Explore extends AppCompatActivity {
         plans.add("Pilgrimages");
         plans.add("Trekking Routes");
 
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-        planpics.add(R.drawable.jaipur);
-
-
-
-//        planpics.add(R.drawable.beaches);
-//        planpics.add(R.drawable.heritage);
-//        planpics.add(R.drawable.hill_station);
-//        planpics.add(R.drawable.honeymoon_destination);
-//        planpics.add(R.drawable.nature_lap);
-//        planpics.add(R.drawable.pilgrimage);
-//        planpics.add(R.drawable.trekking);
+        planpics.add(R.drawable.adventure);
+        planpics.add(R.drawable.beaches);
+        planpics.add(R.drawable.heritagesites);
+        planpics.add(R.drawable.hillstations);
+        planpics.add(R.drawable.honeymoon);
+        planpics.add(R.drawable.nature);
+        planpics.add(R.drawable.pilgrimages);
+        planpics.add(R.drawable.trekking);
         dadapter.notifyDataSetChanged();
+
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+//        planpics.add(R.drawable.jaipur);
+
+
+
+
     }
 }

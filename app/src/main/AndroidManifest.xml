@@ -21,7 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".staticdata.InsidePlace"></activity>
+        <activity android:name=".splashscreen.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".staticdata.InsidePlace" />
         <activity android:name=".explore.Explore" />
         <activity android:name=".itineary.DaysStore" />
         <activity android:name=".itineary.StartPlanning" />
@@ -36,20 +43,16 @@
         <activity android:name=".Username" />
         <activity android:name=".Signup" />
         <activity android:name=".Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".maps.activities.DisplayActivity"></activity>
+        <activity android:name=".maps.activities.DisplayActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".maps.activities.PlaceDetailsActivity" />
         <activity android:name=".maps.activities.PlaceOnMapActivity" />
         <activity android:name=".maps.activities.ShowPlacesOnMapActivity" />
         <activity android:name=".maps.activities.mapfinalactivity" />
         <activity android:name=".itineary.addtrip.ProfileActivity" />
-        <activity android:name=".itineary.addtrip.AddTrip"></activity>
+        <activity android:name=".itineary.addtrip.AddTrip" />
         <activity android:name=".itineary.addtrip.DetailsActivity" />
         <activity android:name=".itineary.addtrip.MainActivity">
 

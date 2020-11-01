@@ -243,7 +243,7 @@ public class Profile extends AppCompatActivity{
 //    }
 
     public void display(){
-        Toast.makeText(getApplicationContext(),"Display",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"Display",Toast.LENGTH_SHORT).show();
         final String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        userinfo(userid);
 //        displayImage(userid);
@@ -253,7 +253,7 @@ public class Profile extends AppCompatActivity{
 
 
         // userinfo
-        Toast.makeText(getApplicationContext(),"UserInfo",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"UserInfo",Toast.LENGTH_SHORT).show();
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("UserInformation");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -274,7 +274,7 @@ public class Profile extends AppCompatActivity{
 
 
         // displayImg
-        Toast.makeText(getApplicationContext(),"DisplayImg",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"DisplayImg",Toast.LENGTH_SHORT).show();
         StorageReference sref = FirebaseStorage.getInstance().getReference().child(userid).child("DP");
 
         final long ONE_MEGABYTE =1024 * 1024 * 2;
@@ -289,12 +289,12 @@ public class Profile extends AppCompatActivity{
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"This image is not present " + userid,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),"This image is not present " + userid,Toast.LENGTH_SHORT).show();
             }
         });
 
 //         noOfTrips
-        Toast.makeText(getApplicationContext(),"No_ofTrips",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"No_ofTrips",Toast.LENGTH_SHORT).show();
         DatabaseReference ref1=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Posts");
         ref1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -317,7 +317,7 @@ public class Profile extends AppCompatActivity{
 //
 //        // noOfFollowers
 //
-        Toast.makeText(getApplicationContext(),"No_ofFollowers",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"No_ofFollowers",Toast.LENGTH_SHORT).show();
         DatabaseReference ref2=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Follower");
         ref2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -333,12 +333,12 @@ public class Profile extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(),"Failed Follower",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),"Failed Follower",Toast.LENGTH_SHORT).show();
             }
         });
 
 //        // noOfFollowing
-        Toast.makeText(getApplicationContext(),"No_ofFollowing",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"No_ofFollowing",Toast.LENGTH_SHORT).show();
         ref=FirebaseDatabase.getInstance().getReference().child("User").child(userid).child("Following");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
