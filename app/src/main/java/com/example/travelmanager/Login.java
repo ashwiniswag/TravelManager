@@ -16,6 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelmanager.database.dao.daoimpl.ProfileDAOImpl;
+import com.example.travelmanager.database.dto.ProfileDTO;
+import com.example.travelmanager.itineary.addtrip.NavigatonDrawer;
+import com.example.travelmanager.itineary.addtrip.SharedPreferencesManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -210,6 +214,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
+
             check();
 //            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
@@ -224,6 +229,9 @@ public class Login extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),Username.class));
                 }
                 else{
+                    String username=snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").child("DisplayName").getValue().toString();
+                    String email=snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").child("UserName").getValue().toString();
+                    meth(username,email,"12345");
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
 //                    startActivity(new Intent(getApplicationContext(),Profile.class));
                 }
@@ -234,5 +242,26 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+    public void meth(String userName,String email,String password){
+        ProfileDAOImpl profileDAO = new ProfileDAOImpl(this);
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setProfile_name(userName);
+        profileDTO.setProfile_email(email);
+        profileDTO.setProfile_password(password);
+
+        if (!profileDAO.isEmailExist(profileDTO.getProfile_email())) {
+            profileDAO.insertProfile(profileDTO);
+            //save user data to sharedPreferences
+            SharedPreferencesManager shm = new SharedPreferencesManager(this);
+            shm.saveUserDataToSharedPreferences(email, password, "applogin");
+//            Intent intent = new Intent(this, NavigatonDrawer.class);
+//            intent.putExtra("profileEmail", email);
+            //finish();
+            //startActivity(intent);
+
+        } else {
+            Toast.makeText(this, "User Exist", Toast.LENGTH_LONG).show();
+        }
     }
 }

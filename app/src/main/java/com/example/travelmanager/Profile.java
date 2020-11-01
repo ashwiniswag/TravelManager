@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.travelmanager.explore.Explore;
 import com.example.travelmanager.itineary.StartPlanning;
+import com.example.travelmanager.itineary.addtrip.NavigatonDrawer;
 import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -108,7 +109,9 @@ public class Profile extends AppCompatActivity{
                         finish();
                         break;
                     case R.id.plans:
-                        startActivity(new Intent(getApplicationContext(), StartPlanning.class));
+                        Intent intent = new Intent(getApplicationContext(), NavigatonDrawer.class);
+
+                        startActivity(intent);
                         finish();
                         break;
                     case R.id.post:

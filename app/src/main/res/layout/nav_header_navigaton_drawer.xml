@@ -28,13 +28,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/userName"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="el Champion el 23zam"
+        android:text="Udaysrinu"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="malaksh.da3wa@malaksh-fyh.com" />
+        android:text="udaysrinu.786@gmail.com" />
 
 </LinearLayout>

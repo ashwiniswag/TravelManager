@@ -23,9 +23,6 @@ import com.example.travelmanager.database.dto.TripDTO;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Aya on 3/4/2018.
- */
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.TripViewHolder> {
     private Context context;

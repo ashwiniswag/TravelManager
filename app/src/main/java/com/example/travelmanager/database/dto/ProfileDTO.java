@@ -2,9 +2,6 @@ package com.example.travelmanager.database.dto;
 
 import java.io.Serializable;
 
-/**
- * Created by EslamWaheed on 3/5/2018.
- */
 
 public class ProfileDTO implements Serializable {
     private Integer profile_id;

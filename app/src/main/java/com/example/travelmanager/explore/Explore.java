@@ -17,6 +17,7 @@ import com.example.travelmanager.Profile;
 import com.example.travelmanager.R;
 import com.example.travelmanager.itineary.DaysStore;
 import com.example.travelmanager.itineary.StartPlanning;
+import com.example.travelmanager.itineary.addtrip.NavigatonDrawer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -86,7 +87,9 @@ public class Explore extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.plans:
-                        startActivity(new Intent(getApplicationContext(), StartPlanning.class));
+                        Intent intent = new Intent(getApplicationContext(), NavigatonDrawer.class);
+
+                        startActivity(intent);
                         finish();
                         break;
                     case R.id.profile:
@@ -112,7 +115,7 @@ public class Explore extends AppCompatActivity {
     }
 
     public void populatecategory(){
-        categoryClass.add(new CategoryClass("Hotels",R.drawable.hotel2x));
+        categoryClass.add(new CategoryClass("Hotel",R.drawable.hotel2x));
         categoryClass.add(new CategoryClass("Market",R.drawable.market2x));
         categoryClass.add(new CategoryClass("Hospital",R.drawable.hospital2x));
         categoryClass.add(new CategoryClass("Food",R.drawable.food2x));

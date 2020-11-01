@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travelmanager.Login;
 import com.example.travelmanager.Profile;
 import com.example.travelmanager.R;
 import com.example.travelmanager.database.Converter;
@@ -33,11 +35,20 @@ import com.example.travelmanager.database.dao.daoimpl.ProfileDAOImpl;
 import com.example.travelmanager.database.dao.daoimpl.TripDAOImpl;
 import com.example.travelmanager.database.dto.ProfileDTO;
 import com.example.travelmanager.database.dto.TripDTO;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.example.travelmanager.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.travelmanager.MainActivity.*;
 
 public class NavigatonDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +60,8 @@ public class NavigatonDrawer extends AppCompatActivity
     TextView userName;
     TextView userEmail;
     String email;
+
+    GoogleSignInClient mGoogleSignInClient;
     View header;
     private FloatingActionButton fab;
     public static MainAdapter adapter;
@@ -61,13 +74,17 @@ public class NavigatonDrawer extends AppCompatActivity
         setContentView(R.layout.activity_navigaton_drawer);
         rv = (RecyclerView) findViewById(R.id.rv);
         rv.setHasFixedSize(true);
+        //Toast.makeText(this,"in navigationDRawer",Toast.LENGTH_LONG).show();
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         Intent intent = getIntent();
-
+        //getSupportActionBar().hide();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -144,7 +161,7 @@ public class NavigatonDrawer extends AppCompatActivity
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent profileIntent = new Intent(NavigatonDrawer.this, ProfileActivity.class);
+                Intent profileIntent = new Intent(NavigatonDrawer.this, Profile.class);
                 profileIntent.putExtra("profileEmail", email);
                 startActivity(profileIntent);
             }
@@ -181,7 +198,7 @@ public class NavigatonDrawer extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            Intent profileIntent = new Intent(NavigatonDrawer.this, ProfileActivity.class);
+            Intent profileIntent = new Intent(NavigatonDrawer.this, Profile.class);
             profileIntent.putExtra("profileEmail", email);
             startActivity(profileIntent);
         } else if (id == R.id.nav_history) {
@@ -193,6 +210,20 @@ public class NavigatonDrawer extends AppCompatActivity
 //            aboutIntent = new Intent(NavigatonDrawer.this, AboutActivity.class);
 //            startActivity(aboutIntent);
         } else if (id == R.id.nav_share) {
+                mGoogleSignInClient.signOut()
+                        .addOnCompleteListener(NavigatonDrawer.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(NavigatonDrawer.this,"Successfully Signed Out",Toast.LENGTH_LONG).show();
+                                Intent lip=new Intent(NavigatonDrawer.this, Login.class);
+                                startActivity(lip);
+                                finish();
+                            }
+                        });
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
+
 //            SharedPreferencesManager spm = new SharedPreferencesManager(NavigatonDrawer.this);
 //            String loginType = spm.getLoginType();
 //            spm.deleteSharedPreferenceData();
@@ -262,4 +293,5 @@ public class NavigatonDrawer extends AppCompatActivity
             }
         }.execute();
     }
+
 }

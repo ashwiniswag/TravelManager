@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
 
     <application
         android:allowBackup="true"
@@ -47,6 +51,20 @@
         <activity android:name=".itineary.addtrip.ProfileActivity" />
         <activity android:name=".itineary.addtrip.AddTrip"></activity>
         <activity android:name=".itineary.addtrip.DetailsActivity" />
+        <activity android:name=".itineary.addtrip.MainActivity">
+
+        </activity>
+        <activity android:name=".itineary.addtrip.Log_in" />
+        <activity android:name=".itineary.addtrip.Sign_up" />
+        <activity android:name=".itineary.addtrip.Home" />
+        <activity
+            android:name=".itineary.addtrip.NavigatonDrawer"
+            android:label="@string/title_activity_navigaton_drawer"
+            android:theme="@style/AppTheme.NoActionBar"> >
+
+        </activity>
+        <activity android:name=".itineary.addtrip.History_Main" />
+        <activity android:name=".itineary.addtrip.history_details" />
         <activity
             android:name=".itineary.addtrip.AlertActivity"
             android:excludeFromRecents="true"

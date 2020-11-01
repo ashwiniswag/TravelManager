@@ -8,20 +8,20 @@
     android:background="@mipmap/pbackground"
     tools:context="com.example.travelmanager.itineary.addtrip.History_Main">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
 
             app:title="History"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:src="@mipmap/line"
         android:layout_gravity="center"/>
 
-<android.support.v7.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView
     android:id="@+id/history_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

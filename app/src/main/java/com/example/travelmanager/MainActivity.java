@@ -30,6 +30,7 @@ import com.example.travelmanager.itineary.DaysStore;
 import com.example.travelmanager.itineary.StartPlanning;
 //import com.example.travelmanager.maps.*;
 import com.example.travelmanager.itineary.addtrip.AddTrip;
+import com.example.travelmanager.itineary.addtrip.NavigatonDrawer;
 import com.example.travelmanager.maps.activities.mapfinalactivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -97,7 +98,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this,Post.class));
                         break;
                     case R.id.plans:
-                        startActivity(new Intent(getApplicationContext(), AddTrip.class));
+                        String email="abc.678@gmail.com";
+                        //Toast.makeText(MainActivity.this,"going navigation",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, NavigatonDrawer.class);
+                        intent.putExtra("profileEmail", email);
+                        startActivity(intent);
                         break;
                     case R.id.profile:
                         startActivity(new Intent(getApplicationContext(),Profile.class));
@@ -132,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 finish();
             case R.id.map:
-                startActivity(new Intent(MainActivity.this,mapfinalactivity.class));
+                Intent intent =new Intent(this,mapfinalactivity.class);
+                intent.putExtra("id","-1");
+                startActivity(intent);
                 break;
 //            case R.id.post:
 //                startActivity(new Intent(MainActivity.this,Post.class));
@@ -146,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void logout(){
+     public void logout(){
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<Void>() {
                     @Override
