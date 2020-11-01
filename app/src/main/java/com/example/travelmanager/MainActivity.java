@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
     void addtoView(final String caption, final String Nlikes, final String Ncomment, final String username, final Bitmap bitmap,final Bitmap bitmap2){
         moddleClasses.add(new ModdleClass(bitmap,bitmap2,R.drawable.like,caption,Nlikes,Ncomment,username));
-        Toast.makeText(getApplicationContext(),"Added to the view",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"Added to the view",Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
     }
 
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String user=snapshot.child("UserName").getValue().toString();
-                Toast.makeText(getApplicationContext(),"Got UserName " + user,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),"Got UserName " + user,Toast.LENGTH_SHORT).show();
                 getpic(caption,Nlikes,Ncomment,picname,user,userid);
             }
 
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bitmap2= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 //                    image.setImageBitmap(bitmap);
 //                    String username=user;
-                    Toast.makeText(getApplicationContext(),"Got Pic",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Got Pic",Toast.LENGTH_SHORT).show();
                     addtoView(caption,Nlikes,Ncomment,user,bitmap,bitmap2);
                 }
             }
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                 d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
                 d.draw(canvas);
                 addtoView(caption,Nlikes,Ncomment,user,bitmap,bitmap2);
-                Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present " ,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present " ,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 //                    image.setImageBitmap(bitmap);
 //                    String username=user;
-                    Toast.makeText(getApplicationContext(),"Got Pic",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Got Pic",Toast.LENGTH_SHORT).show();
 //                    addtoView(caption,Nlikes,Ncomment,user,bitmap);
                     getdp(caption,Nlikes,Ncomment,user,userid,bitmap);
                 }
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present "  + Picname,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),e.getMessage() + "This image is not present "  + Picname,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
                         String Ncomment=content.child("NComment").getValue().toString();
                         String Picname=content.child("Postid").getValue().toString();
                         String userid=userna;
-                        Toast.makeText(getApplicationContext(),"Post info taken " + Nlikes + " "+Ncomment,Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(),"Post info taken " + Nlikes + " "+Ncomment,Toast.LENGTH_SHORT).show();
                         add(caption,Nlikes,Ncomment,Picname,userid);
                     }
 //                }
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     void populate(){
-        Toast.makeText(getApplicationContext(),"Populate Running",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"Populate Running",Toast.LENGTH_SHORT).show();
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Following");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 while (followingiterator.hasNext()){
                     DataSnapshot followingsnapshot=followingiterator.next();
                     String userna=followingsnapshot.child("Userid").getValue().toString();
-                    Toast.makeText(getApplicationContext(),"Following Task done",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Following Task done",Toast.LENGTH_SHORT).show();
                     getpostinfo(userna);
                 }
             }
@@ -322,7 +322,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
 }

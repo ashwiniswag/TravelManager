@@ -100,7 +100,7 @@ public class FindFollower extends AppCompatActivity {
     }
 
     public void populate(){
-        Toast.makeText(FindFollower.this,"FInding",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(FindFollower.this,"FInding",Toast.LENGTH_SHORT).show();
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("UserIds");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -222,10 +222,12 @@ public class Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").getValue()==null){
                     startActivity(new Intent(getApplicationContext(),Username.class));
+                    finish();
                 }
                 else{
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
 //                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                    finish();
                 }
             }
 
