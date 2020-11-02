@@ -5,9 +5,6 @@ import com.example.travelmanager.database.dto.TripDTO;
 
 import java.util.List;
 
-/**
- * Created by EslamWaheed on 3/6/2018.
- */
 
 public interface TripDAOInt {
 

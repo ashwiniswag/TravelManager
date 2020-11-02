@@ -15,10 +15,6 @@ import com.example.travelmanager.database.dto.ProfileDTO;
 
 import java.io.ByteArrayOutputStream;
 
-/**
- * Created by EslamWaheed on 3/6/2018.
- */
-
 public class ProfileDAOImpl implements ProfileDAOInt {
 
     public static final String TAG = "ProfileDAOImpl";

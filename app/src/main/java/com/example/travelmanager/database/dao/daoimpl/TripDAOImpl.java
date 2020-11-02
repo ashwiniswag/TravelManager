@@ -15,9 +15,6 @@ import com.example.travelmanager.database.dto.TripDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by EslamWaheed on 3/6/2018.
- */
 
 public class TripDAOImpl implements TripDAOInt {
 

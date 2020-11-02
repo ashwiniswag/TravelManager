@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelmanager.database.dao.daoimpl.ProfileDAOImpl;
+import com.example.travelmanager.database.dto.ProfileDTO;
+import com.example.travelmanager.itineary.addtrip.SharedPreferencesManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -70,7 +73,7 @@ public class Signup extends AppCompatActivity {
     private void signup(){
         String scpassword=cpassword.getText().toString();
         String spasword=password.getText().toString();
-        String semail=email_id.getText().toString();
+        final String semail=email_id.getText().toString();
 
         if(spasword.isEmpty() || !scpassword.equals(spasword) || semail.isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please provide correct email and password",Toast.LENGTH_SHORT).show();
@@ -83,7 +86,9 @@ public class Signup extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // move to usrname
                         Toast.makeText(getApplicationContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Signup.this, Username.class));
+                        Intent intent=new Intent(Signup.this, Username.class);
+                        intent.putExtra("email", semail);
+                        startActivity(intent);
                     } else {
                         if(!task.getException().getMessage().isEmpty()) {
                             Toast.makeText(Signup.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -94,6 +99,27 @@ public class Signup extends AppCompatActivity {
                     }
                 }
             });
+        }
+    }
+    public void meth(String userName,String email,String password){
+        ProfileDAOImpl profileDAO = new ProfileDAOImpl(this);
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setProfile_name(userName);
+        profileDTO.setProfile_email(email);
+        profileDTO.setProfile_password(password);
+
+        if (!profileDAO.isEmailExist(profileDTO.getProfile_email())) {
+            profileDAO.insertProfile(profileDTO);
+            //save user data to sharedPreferences
+            SharedPreferencesManager shm = new SharedPreferencesManager(this);
+            shm.saveUserDataToSharedPreferences(email, password, "applogin");
+//            Intent intent = new Intent(this, NavigatonDrawer.class);
+//            intent.putExtra("profileEmail", email);
+            //finish();
+            //startActivity(intent);
+
+        } else {
+            Toast.makeText(this, "User Exist", Toast.LENGTH_LONG).show();
         }
     }
 

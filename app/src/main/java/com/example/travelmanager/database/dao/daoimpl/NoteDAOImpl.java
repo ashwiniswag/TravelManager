@@ -14,10 +14,6 @@ import com.example.travelmanager.database.dto.NoteDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by EslamWaheed on 3/6/2018.
- */
-
 
 public class NoteDAOImpl implements NoteDAOInt {
 

@@ -226,13 +226,18 @@ public class Login extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").getValue()==null){
-                    startActivity(new Intent(getApplicationContext(),Username.class));
+                    Intent intent=new Intent(getApplicationContext(),Username.class);
+                    String email3=email.getText().toString();
+                    intent.putExtra("email",email3);
+                    startActivity(intent);
                     finish();
                 }
                 else{
                     String username=snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").child("DisplayName").getValue().toString();
-                    String email=snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").child("UserName").getValue().toString();
-                    meth(username,email,"12345");
+                    String email2=snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").child("UserName").getValue().toString();
+                    String email3=email.getText().toString();
+                    //meth(username,email3,"12345");
+                    meth("Username","abc@gmail.com","1234");
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
 //                    startActivity(new Intent(getApplicationContext(),Profile.class));
                     finish();

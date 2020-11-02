@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
 
+import com.example.travelmanager.Login;
 import com.example.travelmanager.MainActivity;
 import com.example.travelmanager.R;
 import com.example.travelmanager.Username;
@@ -34,7 +35,8 @@ public class SplashScreen extends AppCompatActivity {
         handle.postDelayed(new Runnable() {
             @Override
             public void run() {
-                check();
+                //check();
+                startActivity(new Intent(getApplicationContext(), Login.class));
                 finish();
             }
         },1500);

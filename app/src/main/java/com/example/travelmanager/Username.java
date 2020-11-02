@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelmanager.database.dao.daoimpl.ProfileDAOImpl;
+import com.example.travelmanager.database.dto.ProfileDTO;
+import com.example.travelmanager.itineary.addtrip.SharedPreferencesManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,7 +52,7 @@ public class Username extends AppCompatActivity {
 
     byte[] dat;
     Boolean bool;
-
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,7 @@ public class Username extends AppCompatActivity {
         bio = findViewById(R.id.bio);
         username_alert = findViewById(R.id.status);
         file = findViewById(R.id.fileName);
-
+        bundle=getIntent().getExtras();
         choose_dp = findViewById(R.id.dp);
         add = findViewById(R.id.user_info);
 
@@ -132,7 +135,8 @@ public class Username extends AppCompatActivity {
             User user=new User(DisplayName,UserName);
             ref.child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserInformation").setValue(user);
         }
-
+        //meth(UserName,bundle.getString("email"),"1234");
+        meth("Username","abc@gmail.com","1234");
         ref.child("UserIds").child(UserName).child("Userid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ref.child("UserIds").child(UserName).child("DisplayName").setValue(DisplayName);
         ref.child("UserIds").child(UserName).child("UserName").setValue(UserName);
@@ -170,7 +174,7 @@ public class Username extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 long l = baos.toByteArray().length;
                 if (l >= (long)1200000) {
-                    Toast.makeText(getApplicationContext(), "Please selet image of size less than 1mb", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please select image of size less than 1mb", Toast.LENGTH_SHORT).show();
                 } else {
                     dat = baos.toByteArray();
                     file.setText(data.getDataString());
@@ -183,5 +187,26 @@ public class Username extends AppCompatActivity {
             }
         }
 
+    }
+    public void meth(String userName,String email,String password){
+        ProfileDAOImpl profileDAO = new ProfileDAOImpl(this);
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setProfile_name(userName);
+        profileDTO.setProfile_email(email);
+        profileDTO.setProfile_password(password);
+
+        if (!profileDAO.isEmailExist(profileDTO.getProfile_email())) {
+            profileDAO.insertProfile(profileDTO);
+            //save user data to sharedPreferences
+            SharedPreferencesManager shm = new SharedPreferencesManager(this);
+            shm.saveUserDataToSharedPreferences(email, password, "applogin");
+//            Intent intent = new Intent(this, NavigatonDrawer.class);
+//            intent.putExtra("profileEmail", email);
+            //finish();
+            //startActivity(intent);
+
+        } else {
+            Toast.makeText(this, "User Exist", Toast.LENGTH_LONG).show();
+        }
     }
 }

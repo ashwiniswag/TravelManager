@@ -3,9 +3,6 @@ package com.example.travelmanager.database.dao.daoint;
 
 import com.example.travelmanager.database.dto.ProfileDTO;
 
-/**
- * Created by EslamWaheed on 3/6/2018.
- */
 
 public interface ProfileDAOInt {
     ProfileDTO getProfile(int id);
